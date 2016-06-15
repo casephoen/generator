@@ -26,7 +26,11 @@
   <artifactId>mybatis-generator-systests-mybatis3</artifactId>
   <packaging>jar</packaging>
   <name>MyBatis Generator Tests (MyBatis3)</name>
-
+  
+  <properties>
+    <generated.source.directory>${project.build.directory}/generated-sources/mybatis-generator</generated.source.directory>
+  </properties>
+  
   <build>
     <plugins>
       <plugin>
@@ -60,6 +64,24 @@
             <version>${project.version}</version>
           </dependency>
         </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>add-test-source</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+              <goal>add-test-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>${generated.source.directory}</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

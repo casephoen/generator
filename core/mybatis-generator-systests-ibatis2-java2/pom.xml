@@ -30,8 +30,9 @@
   <properties>
     <maven.compiler.source>1.4</maven.compiler.source>
     <maven.compiler.target>1.4</maven.compiler.target>
+    <generated.source.directory>${project.build.directory}/generated-sources/mybatis-generator</generated.source.directory>
   </properties>
-
+  
   <build>
     <plugins>
       <plugin>
@@ -66,6 +67,24 @@
             <version>${project.version}</version>
           </dependency>
         </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>add-test-source</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+              <goal>add-test-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>${generated.source.directory}</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
